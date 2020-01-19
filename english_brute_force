@@ -1,0 +1,77 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main(){
+	int t;
+	cin>>t;
+	while(t--){
+	int  n;
+		cin>>n;
+		vector<string> s;
+		vector<string> x;
+		string str;
+		
+		for( int i=0;i<n;i++){
+			cin>>str;
+			s.push_back(str);
+		}
+		if(n==1){
+		    cout<<"0"<<"\n";
+		    continue;
+		}
+		sort(s.begin(),s.end());
+		long int ans=0;
+		//removing same strings
+		for(int i=0;i<n;i++){
+			if((i+1)<n&&s[i]==s[i+1]){
+			ans+=s[i].length()*s[i].length();
+			    i++;
+			}
+			else
+			x.push_back(s[i]);
+		}
+		int a,b;
+		//handling rest of strings
+		while(x.size()>1){
+		 long int max=0;
+		 int ind1=0,ind2=0;
+		for(int i=0;i<x.size();i++){
+			for(int f=0;f<x.size();f++){
+			int j=0;
+				a=0;
+			b=0;
+			if(i!=f){
+			int h=x[i].length()-1;
+			int g=x[f].length()-1;
+			while(x[i][j]==x[f][j]&&(j<=h)&&j<=g){
+				a++;
+				j++;
+			}
+			while(x[i][h]==x[f][g]&&h>=0&&g>=0){
+				b++;
+				h--;
+				g--;
+			}
+			int q=min(a,b);
+			if(max<q){
+				max=q;
+				ind1=i;
+				ind2=f;
+			}}
+	 }
+	}
+	ans+=max*max;
+	if(ind1<ind2){
+	x.erase(x.begin()+ind2);
+	x.erase(x.begin()+ind1);
+	}
+	else{
+	    x.erase(x.begin()+ind1);
+	x.erase(x.begin()+ind2);
+	}
+	
+}
+	cout<<ans<<"\n";
+	x.clear();
+}
+}
+
