@@ -1,45 +1,37 @@
-#include<bits/stdc++.h>
-#include<stdio.h>
+#include <bits/stdc++.h>
 using namespace std;
-#define gc getchar_unlocked
-//scanner for fast input
-void scanint(int &x)
+void solve()
 {
-    register int c = gc();
-    x = 0;
-    for(;(c<48 || c>57);c = gc());
-    for(;c>47 && c<58;c = gc()) {x = (x<<1) + (x<<3) + c - 48;}
+    int n,m,y1,y2,x1,x2,ans=0;
+    cin>>n>>m;int a[n][m];
+    for(int i=0;i<n;i++)
+        for(int j=0;j<m;j++)cin>>a[i][j];
+
+    for(int i=0;i<n;i++)
+        for(int j=0;j<m;j++)
+        {
+            int c=0;
+            y1=y2=i;
+            x1=x2=j;
+
+
+            while( x1>=0 and x2<m and y1>=0 and y2<n and a[y1][j]==a[y2][j] and a[i][x1]==a[i][x2])
+                c++,x1--,x2++,y1--,y2++;
+
+            ans=ans+c;
+
+
+        }
+    cout<<ans<<"\n";
+
+
 }
 int main()
 {
-    int t;cin>>t;
+    int t;
+    cin>>t;
     while(t--)
     {
-        int n,m;scanint(n);scanint(m);//use of scanner
-        int a[n+1][m+1];
-        for(int i=1;i<=n;i++)
-            for(int j=1;j<=m;j++)
-            {int k;scanint(k);a[i][j]=k;}
-        if(n*m<9)
-            cout<<n*m<<endl;
-        else
-        {
-            long long int ans=n*m;
-            for(int i=2;i<=n-1;i++)
-            {
-             	   for(int j=2;j<=m-1;j++)
-                   {
-                       int up=i-1,down=i+1,left=j-1,right=j+1;
-                       while(up>0&&down<=n&&left>0&&right<=m)
-                       {
-                       		if(a[up][j]==a[down][j]&&a[i][left]==a[i][right])
-                                ans++;
-                           else break;
-                           up--,down++,left--,right++;
-                       }
-                   }
-            }
-            cout<<ans<<endl;
-        }
+        solve();
     }
 }
